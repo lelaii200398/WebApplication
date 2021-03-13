@@ -310,6 +310,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -358,6 +359,12 @@
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Site\Home.cshtml" />
+    <Content Include="Views\Module\_Header.cshtml" />
+    <Content Include="Views\Module\_Footer.cshtml" />
+    <Content Include="Views\Module\_SlideShow.cshtml" />
+    <Content Include="Views\Module\_Discount.cshtml" />
+    <Content Include="Views\Module\_Post.cshtml" />
+    <Content Include="Views\Module\_Subscribe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
