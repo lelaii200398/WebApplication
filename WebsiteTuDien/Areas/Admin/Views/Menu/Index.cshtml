@@ -60,8 +60,8 @@
                                         @foreach (var h in ViewBag.ListCat)
                                         {
                                             <div class="form-group ml-3">
-                                                <input name="itemCat" value="@h.ID" id="category@(h.ID)" type="checkbox">
-                                                <label for="category@(h.ID)" class="font-weight-normal">@h.Name</label>
+                                                <input name="itemCat" value="@h.Id" id="category@(h.Id)" type="checkbox">
+                                                <label for="category@(h.Id)" class="font-weight-normal">@h.Name</label>
                                             </div>}
                                         <div class="form-group">
                                             <input type="submit" name="AddCat" value="Thêm" class="btn btn-success form-control">
@@ -80,8 +80,8 @@
                                         @foreach (var j in ViewBag.ListTopic)
                                         {
                                             <fieldset class="form-group ml-3">
-                                                <input name="itemTopic" value="@j.ID" id="topic@(j.ID)" type="checkbox">
-                                                <label for="topic@(j.ID)" class="font-weight-normal">@j.Name</label>
+                                                <input name="itemTopic" value="@j.Id" id="topic@(j.Id)" type="checkbox">
+                                                <label for="topic@(j.Id)" class="font-weight-normal">@j.Name</label>
                                             </fieldset>}
                                         <div class="form-group">
                                             <input type="submit" name="AddTopic" value="Thêm" class="btn btn-success form-control">
@@ -100,8 +100,8 @@
                                         @foreach (var j in ViewBag.ListPage)
                                         {
                                             <div class="form-group ml-3">
-                                                <input name="itemPage" value="@j.ID" id="topic@(j.ID)" type="checkbox">
-                                                <label for="topic@(j.ID)" class="font-weight-normal">@j.Title</label>
+                                                <input name="itemPage" value="@j.Id" id="topic@(j.Id)" type="checkbox">
+                                                <label for="topic@(j.Id)" class="font-weight-normal">@j.Title</label>
                                             </div>
                                         }
 
