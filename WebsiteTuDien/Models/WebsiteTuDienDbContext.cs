@@ -20,5 +20,6 @@ namespace WebsiteTuDien.Models
         public virtual DbSet<MOrder> Order { get; set; }
         public virtual DbSet<MOrderDetail> OrderDetail { get; set; }
         public virtual DbSet<MSlider> Slider { get; set; }
+        public virtual DbSet<MUser> User { get; set; }
     }
 }
