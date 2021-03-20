@@ -1,153 +1,170 @@
-﻿<header class="header">
+﻿@model IEnumerable<WebsiteTuDien.Models.MCategory>
 
-    <!-- Topbar - start -->
-    <div class="header_top">
-        <div class="container">
-            <ul class="contactinfo nav nav-pills">
-                <li>
-                    <i class='fa fa-phone'></i> +7 777 123 1575
-                </li>
-                <li>
-                    <i class="fa fa-envelope"></i> admin@real-web.pro
-                </li>
-            </ul>
-            <!-- Social links -->
-            <ul class="social-icons nav navbar-nav">
-                <li>
-                    <a href="http://facebook.com" rel="nofollow" target="_blank">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://google.com" rel="nofollow" target="_blank">
-                        <i class="fa fa-google-plus"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://twitter.com" rel="nofollow" target="_blank">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://vk.com" rel="nofollow" target="_blank">
-                        <i class="fa fa-vk"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://instagram.com" rel="nofollow" target="_blank">
-                        <i class="fa fa-instagram"></i>
-                    </a>
-                </li>
-            </ul>
+<header>
+    <div class="" style="background:rgb(29, 113, 171)">
+        <div class="container-91 text-right">
+            <small class="float-left mt-1 text-white">
+                Email@gmail.com  |  0123.456.789
+            </small>
+            <small>
+                @Html.Action("MainMenu", "Module")
+            </small>
         </div>
     </div>
-    <!-- Topbar - end -->
-    <!-- Logo, Shop-menu - start -->
-    <div class="header-middle">
-        <div class="container header-middle-cont">
-            <div class="toplogo">
-                <a href="index.html">
-                    <img src="~/Content/User/img/logo.png" alt="AllStore - MultiConcept eCommerce Template">
+    <div class="wrapt">
+        <div class=" row container-91">
+            <div class="col-sm-3 text-light float-left">
+                <a href="/"
+                   class="d-block text-decoration-none h3 text-center pt-3 text-white font-weight-bold">
+                    WebsiteTuDien
                 </a>
             </div>
-            <div class="shop-menu">
-                <ul>
+            <div class="col-sm-5 float-left">
+                @using (Html.BeginForm("Search", "Site", FormMethod.Get, new { @class = "form-search-top" }))
+                {
+                    <input class="in-search text-secondary" type="text" style="font-size: 14px;" placeholder="Nhập tên sản phẩm..." name="key" value="@(Session["keywords"] ?? "")">
+                    <button class="bt-search" type="submit"><i class="fas fa-search" style="color:#ccc"></i></button>
+                }
+            </div>
+            <div class="col-sm-4 float-left pt-1">
+                <div class="cart float-left pr-2" style="margin-top:-6px;margin-left:-20px;">
+                    <a href="~/gio-hang">
+                        <button type="button" class="btn btn-cart">
+                            <i class="fas fa-shopping-cart text-light"></i>
+                            <small>
+                                <span class="badge badge-light slc">
+                                    @(Session["Cart"] != null ? ((List<WebsiteTuDien.Library.ModelCart>)Session["Cart"]).Count() : 0)
+                                </span>
+                            </small>
+                            <div style="font-size:11px; color:#d0efff">Giỏ hàng</div>
+                        </button>
+                    </a>
+                    <div class="list-cart">
+                        @if (Session["Cart"] != null)
+                        {
+                            <div class="t border-bottom">
+                                Giỏ hàng của bạn
+                            </div>
+                            <ul class="container">
+                                @{double Tong = 0;}
+                                @foreach (var c in (List<WebsiteTuDien.Library.ModelCart>)Session["Cart"])
+                                {
+                                    Tong += (c.Price * c.Quantity);
+                                    <li>
+                                        <div class="row my-3">
+                                            <div class="col-4">
+                                                <a href="~/@c.Slug">
+                                                    <img src="~/Content/Path/product/@c.Image" alt="@c.Name" width="70">
+                                                </a>
+                                            </div>
+                                            <div class="col-7">
+                                                <a href="~/@c.Slug" class="text-decoration-none">
+                                                    <div class="name"> @c.Name</div>
+                                                </a>
+                                                <div class="price">
+                                                    Đơn giá: @c.Price.ToString("N0") ₫
+                                                </div>
+                                                <div class="quantity">Số lượng: @c.Quantity</div>
+                                            </div>
 
-                    <li>
-                        <a href="wishlist.html">
-                            <i class="fa fa-heart"></i>
-                            <span class="shop-menu-ttl">Wishlist</span>
-                            (<span id="topbar-favorites">1</span>)
-                        </a>
-                    </li>
+                                            <div class="col-1 p-0 m-0">
+                                                <a href="javascript:void(0)" data-toggle="tooltip" data-placement="right" class="m-remove-one"
+                                                   data-id="@c.ProductID" title="Xóa khỏi giỏ hàng"><i class="fas fa-times-circle"></i></a>
+                                            </div>
+                                        </div>
 
-                    <li>
-                        <a href="compare.html">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="shop-menu-ttl">Compare</span> (5)
-                        </a>
-                    </li>
+                                    </li>
+                                }
+                                <div class="row mb-3 mt-2 clearfix">
+                                    <div class="col-7">
+                                        Tổng: <strong class="float-right" style="color:#ee4d2d">
+                                            @Tong.ToString("N0")₫
+                                        </strong>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="m-0 px-2 btn btn-primary btn-sm float-right">
+                                            <a href="~/gio-hang" class="text-white text-decoration-none">
+                                                Thanh toán
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        }
+                        else
+                        {
+                            <div class="t">
+                                <img src="~/Content/images/null.png" alt="Trống" width="100">
+                                <div class="pb-5 font-weight-bold" style="opacity: .6;">
+                                    Giỏ hàng của bạn trống
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="ml-3 float-left">
+                    <a href="~/tin-tuc" class="text-white font-weight-bold text-decoration-none">Tin tức</a>
+                    <div style="font-size:13px; color:#d0efff">Tin khuyến mại</div>
+                </div>
+                <div class="pl-5 float-left">
+                    @*<button type="button" class="button_login" data-toggle="modal" data-target=".bd-example-modal-lg"
+                                data-whatever="" data-backdrop="static" data-keyboard="false">
+                            Đăng nhập,
+                        </button>
 
-                    <li class="topauth">
-                        <a href="auth.html">
-                            <i class="fa fa-lock"></i>
-                            <span class="shop-menu-ttl">Registration</span>
-                        </a>
-                        <a href="auth.html">
-                            <span class="shop-menu-ttl">Login</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <div class="h-cart">
-                            <a href="cart.html">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="shop-menu-ttl">Cart</span>
-                                (<b>0</b>)
-                            </a>
-                        </div>
-                    </li>
-
-                </ul>
+                        <button type="button" class="button_dangky" data-toggle="modal" data-target="#exampleModal" data-backdrop="static"
+                                data-keyboard="false">
+                            Đăng ký thành viên
+                        </button>*@
+                    @Html.Action("Login", "Module")
+                </div>
             </div>
         </div>
     </div>
-    <!-- Logo, Shop-menu - end -->
-    <!-- Topmenu - start -->
-    <div class="header-bottom">
-        <div class="container">
-            <nav class="topmenu">
 
-                <!-- Catalog menu - start -->
-                <div class="topcatalog">
-                    <a class="topcatalog-btn" href="catalog-list.html"><span>All</span> catalog</a>
-                    <ul class="topcatalog-list">
-                        <li>
-                            <a href="catalog-list.html">
-                                Women
-                            </a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
+    <div class="wrapb">
+        <div class="container-91">
+            <div class="cate float-left p-0">
+                <a href="" class="pl-4 font-weight-bold">
+                    <i class="fas fa-bars"></i>
+                    &nbsp; Danh mục
+                </a>
+    
+                <nav class="main-menu" style="z-index:9999999">
+                    <ul>
+                        @{int i = 1; }
+                        @foreach (var c in Model@*.Take(12)*@)
+                        {
+                            if (c.ParentID == 0)
+                            {
+                                <li>
+                                    <a href="~/@c.Slug"><i class="nicon-@i"></i> &nbsp; @c.Name</a>
+                                    <ul>
+                                        @foreach (var d in Model)
+                    {
+                        if (c.ID == d.ParentID)
+                        {
+                                                <li>
+                                                    <a href="~/@d.Slug" class="font-weight-bold">@d.Name</a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            i++;
+                        }
                     </ul>
-                </div>
-                <!-- Catalog menu - end -->
-                <!-- Main menu - start -->
-                <button type="button" class="mainmenu-btn">Menu</button>
-
-                <ul class="mainmenu">
-                    <li>
-                        <a href="index.html" class="active">
-                            Home
-                        </a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="catalog-list.html">
-                            Catalog <i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="catalog-list.html">
-                                    Catalog List - Style 1
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                </ul>
-                <!-- Main menu - end -->
-                <!-- Search - start -->
-                <div class="topsearch">
-                    <a id="topsearch-btn" class="topsearch-btn" href="#"><i class="fa fa-search"></i></a>
-                    <form class="topsearch-form" action="#">
-                        <input type="text" placeholder="Search products">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-                <!-- Search - end -->
-
-            </nav>
+                </nav>
+            </div>
+            <div class="">
+               @foreach(var t in ViewBag.Promotion)
+               {
+                <div class="promo float-left"> <a href="@t.Slug" class="text-dark text-decoration-none">@t.Title</a> </div>
+               }
+               
+            </div>
         </div>
     </div>
-    <!-- Topmenu - end -->
-
 </header>
+

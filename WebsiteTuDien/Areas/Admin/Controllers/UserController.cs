@@ -48,7 +48,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 {
                     String filename = avatar + file.FileName.Substring(file.FileName.LastIndexOf("."));
                     mUser.Image = filename;
-                    String Strpath = Path.Combine(Server.MapPath("~/Content/Library/images/user"), filename);
+                    String Strpath = Path.Combine(Server.MapPath("~/Content/Path/user"), filename);
                     file.SaveAs(Strpath);
                 }
 
@@ -150,7 +150,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 {
                     String filename = avatar + file.FileName.Substring(file.FileName.LastIndexOf("."));
                     mUser.Image = filename;
-                    String Strpath = Path.Combine(Server.MapPath("~/Content/Library/images/user"), filename);
+                    String Strpath = Path.Combine(Server.MapPath("~/Content/Path/user"), filename);
                     file.SaveAs(Strpath);
                 }
                 db.Entry(mUser).State = EntityState.Modified;

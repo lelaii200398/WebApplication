@@ -87,7 +87,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 {
                     String filename = strSlug + file.FileName.Substring(file.FileName.LastIndexOf("."));
                     mPost.Image = filename;
-                    String Strpath = Path.Combine(Server.MapPath("~/Content/Library/images/page/"), filename);
+                    String Strpath = Path.Combine(Server.MapPath("~/Content/Path/page/"), filename);
                     file.SaveAs(Strpath);
                 }
                 db.Post.Add(mPost);
@@ -130,7 +130,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 {
                     String filename = strSlug + file.FileName.Substring(file.FileName.LastIndexOf("."));
                     mPost.Image = filename;
-                    String Strpath = Path.Combine(Server.MapPath("~/Content/Library/images/page/"), filename);
+                    String Strpath = Path.Combine(Server.MapPath("~/Content/Path/page/"), filename);
                     file.SaveAs(Strpath);
                 }
 

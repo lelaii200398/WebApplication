@@ -247,7 +247,6 @@
     <Content Include="Content\js\popper.min.js" />
     <Content Include="Content\js\sweetalert2%409.js" />
     <Content Include="Content\js\target.min.js" />
-    <Content Include="Content\Library\images\products\tu-dien-noi-21.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\User\css\bootstrap.min.css" />
     <Content Include="Content\User\css\flexslider.css" />
@@ -259,39 +258,15 @@
     <Content Include="Content\User\css\jquery.fancybox.css" />
     <Content Include="Content\User\css\media.css" />
     <Content Include="Content\User\css\style.css" />
+    <Content Include="Content\User\css\style1.css" />
     <Content Include="Content\User\css\swiper.css" />
     <Content Include="Content\User\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\User\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\User\img\arr1.png" />
-    <Content Include="Content\User\img\bar.png" />
-    <Content Include="Content\User\img\bx_loader.gif" />
-    <Content Include="Content\User\img\chk1.png" />
-    <Content Include="Content\User\img\chosen-sprite.png" />
-    <Content Include="Content\User\img\color\blue.jpg" />
-    <Content Include="Content\User\img\color\green.jpg" />
-    <Content Include="Content\User\img\color\purple.jpg" />
-    <Content Include="Content\User\img\color\red.jpg" />
-    <Content Include="Content\User\img\color\yellow.jpg" />
-    <Content Include="Content\User\img\controls.png" />
-    <Content Include="Content\User\img\fancybox_loading%402x.gif" />
-    <Content Include="Content\User\img\fancybox_loading.gif" />
-    <Content Include="Content\User\img\fancybox_overlay.png" />
-    <Content Include="Content\User\img\fancybox_sprite%402x.png" />
-    <Content Include="Content\User\img\fancybox_sprite.png" />
-    <Content Include="Content\User\img\logo-b.png" />
-    <Content Include="Content\User\img\logo.png" />
-    <Content Include="Content\User\img\map.png" />
-    <Content Include="Content\User\img\map1.png" />
-    <Content Include="Content\User\img\marker.png" />
-    <Content Include="Content\User\img\nav1.png" />
+    <Content Include="Content\User\img\logo\ion.ico" />
     <Content Include="Content\User\img\ok.png" />
+    <Content Include="Content\User\img\products\may-hut-bui.jpg" />
     <Content Include="Content\User\img\remove.jpg" />
-    <Content Include="Content\User\img\sep1.png" />
-    <Content Include="Content\User\img\separator1.png" />
-    <Content Include="Content\User\img\slider\slide1.jpg" />
-    <Content Include="Content\User\img\sprite-skin-flat.png" />
-    <Content Include="Content\User\img\subscribe.jpg" />
-    <Content Include="Content\User\img\viewmode.png" />
+    <Content Include="Content\User\img\user\le-gia-lai.jpg" />
     <Content Include="Content\User\js\chosen.jquery.min.js" />
     <Content Include="Content\User\js\fancybox\blank.gif" />
     <Content Include="Content\User\js\fancybox\fancybox.js" />
@@ -334,24 +309,18 @@
     <Compile Include="Areas\Admin\Controllers\SliderController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Library\CheckSlug.cs" />
+    <Compile Include="Library\ModelCart.cs" />
     <Compile Include="Library\ModelThongbao.cs" />
     <Compile Include="Library\Thongbao.cs" />
     <Compile Include="Library\XString.cs" />
-    <Compile Include="Migrations\202103171349271_InitialCreate.cs" />
-    <Compile Include="Migrations\202103171349271_InitialCreate.Designer.cs">
-      <DependentUpon>202103171349271_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103180125233_1.cs" />
-    <Compile Include="Migrations\202103180125233_1.Designer.cs">
-      <DependentUpon>202103180125233_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MUser.cs" />
     <Compile Include="Models\PostTopic.cs" />
     <Compile Include="Models\ListOrder.cs" />
@@ -398,34 +367,13 @@
     <Content Include="Content\Admin\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\css\bootstrap.min.css.map" />
     <Content Include="Content\js\bootstrap.min.js.map" />
-    <Content Include="Content\User\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\User\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\User\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\User\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\User\fonts\FontAwesome.otf" />
-    <Content Include="Content\User\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\User\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\User\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\User\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
     <Content Include="Content\webfonts\fa-regular-400.woff2" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_MessageAlert.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Trash.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Trash.cshtml" />
     <Content Include="Areas\Admin\Views\Contact\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Contact\Reply.cshtml" />
     <Content Include="Areas\Admin\Views\Contact\Trash.cshtml" />
@@ -452,11 +400,6 @@
     <Content Include="Areas\Admin\Views\Topic\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Topic\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Topic\Trash.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Menu\Trash.cshtml" />
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\User\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\User\Details.cshtml" />
@@ -469,19 +412,74 @@
     <Content Include="Areas\Admin\Views\Page\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Page\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Page\Trash.cshtml" />
+    <Content Include="Content\User\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\User\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\User\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\User\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\User\fonts\FontAwesome.otf" />
+    <Content Include="Content\User\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\User\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\User\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\User\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Trash.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Trash.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\Trash.cshtml" />
     <None Include="packages.config" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Site\Home.cshtml" />
-    <Content Include="Views\Module\_Header.cshtml" />
-    <Content Include="Views\Module\_Footer.cshtml" />
-    <Content Include="Views\Module\_SlideShow.cshtml" />
-    <Content Include="Views\Module\_Discount.cshtml" />
-    <Content Include="Views\Module\_Post.cshtml" />
-    <Content Include="Views\Module\_Subscribe.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Account\NotFound.cshtml" />
+    <Content Include="Views\Account\Notification.cshtml" />
+    <Content Include="Views\Account\Order.cshtml" />
+    <Content Include="Views\Account\OrderDetails.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\_ActionOrder.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Module\_Categories.cshtml" />
+    <Content Include="Views\Module\_Footer.cshtml" />
+    <Content Include="Views\Module\_Header.cshtml" />
+    <Content Include="Views\Module\_HomePost.cshtml" />
+    <Content Include="Views\Module\_HomeSlideShow.cshtml" />
+    <Content Include="Views\Module\_ICart.cshtml" />
+    <Content Include="Views\Module\_ListCategory.cshtml" />
+    <Content Include="Views\Module\_ListPage.cshtml" />
+    <Content Include="Views\Module\_Login.cshtml" />
+    <Content Include="Views\Module\_MainMenu.cshtml" />
+    <Content Include="Views\Module\_MiTC.cshtml" />
+    <Content Include="Views\Module\_NewsHome.cshtml" />
+    <Content Include="Views\Module\_Popu.cshtml" />
+    <Content Include="Views\Module\_SlideShow.cshtml" />
+    <Content Include="Views\Shared\_LayoutSite.cshtml" />
+    <Content Include="Views\Shared\_Nofit.cshtml" />
+    <Content Include="Views\Site\Contact.cshtml" />
+    <Content Include="Views\Site\Error.cshtml" />
+    <Content Include="Views\Site\Home.cshtml" />
+    <Content Include="Views\Site\Other.cshtml" />
+    <Content Include="Views\Site\Post.cshtml" />
+    <Content Include="Views\Site\PostDetail.cshtml" />
+    <Content Include="Views\Site\PostPage.cshtml" />
+    <Content Include="Views\Site\PostTopic.cshtml" />
+    <Content Include="Views\Site\Product.cshtml" />
+    <Content Include="Views\Site\ProductCategory.cshtml" />
+    <Content Include="Views\Site\ProductDetail.cshtml" />
+    <Content Include="Views\Site\Search.cshtml" />
+    <Content Include="Views\Site\_ProductHome.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -494,17 +492,11 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\images\news\" />
     <Folder Include="Content\images\pages\" />
-    <Folder Include="Content\Library\images\post\" />
-    <Folder Include="Content\Library\images\slider\" />
-    <Folder Include="Content\Library\images\user\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103171349271_InitialCreate.resx">
-      <DependentUpon>202103171349271_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103180125233_1.resx">
-      <DependentUpon>202103180125233_1.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Content\Path\post\" />
+    <Folder Include="Content\Path\product\" />
+    <Folder Include="Content\Path\slider\" />
+    <Folder Include="Content\Path\user\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

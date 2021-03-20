@@ -1,62 +1,4 @@
-/*----------------------------------
-TABLE OF CONTENTS:
-------------------------------------
 
-1 - Reset
-2 - Header
-3 - Topmenu
-4 - Stylization
-5 - Breadcrumbs
-6 - Pagination
-7 - Frontpage Slider
-8 - Popular Products
-9 - Catalog | Gallery View
-10 - Catalog | List View
-11 - Catalog | Table View
-12 - Sidebar Categories
-13 - Sidebar Filter
-14 - Catalog Topbar
-15 - Products List
-16 - Single Product
-17 - Single Product Tabs
-18 - Single Product Related
-19 - Blog
-20 - Blog Post
-21 - Cart
-22 - Blog Posts
-23 - Reviews
-24 - Reviews List
-25 - Modal Form
-26 - Quick View
-27 - Elements
-28 - Pricing Table
-29 - Team
-30 - Contact Forms
-31 - Brands
-32 - Banners
-33 - Discounts
-34 - Newsletter
-35 - Iconbox 1
-36 - Iconbox 2
-37 - Counters
-38 - Social Links
-39 - Accordion
-40 - Select Styles
-41 - Footer
-42 - Error 404
-43 - Compare List
-
-----------------------------------*/
-
-
-
-
-
-
-
-/*----------------------------------
-1 - Reset
-----------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -7921,6 +7863,11 @@ body .component-desc.component-desc-ct {
 	color: #313b54;
 	font-size: 14px;
 }
+.contactform-wrap .contactform-field input[type=number] {
+	width: auto;
+	color: #313b54;
+	font-size: 14px;
+}
 .contactform-wrap .contactform-field select {
 	background: #fff;
 	outline: none !important;
@@ -7958,6 +7905,7 @@ body .component-desc.component-desc-ct {
 	width: 70%;
 	margin: 0 5px 0 0;
 }
+
 .contactform-wrap .contactform-submit {
 	text-align: center;
 	padding: 15px 0 0;

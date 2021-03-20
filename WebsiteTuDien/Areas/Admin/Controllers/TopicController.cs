@@ -233,7 +233,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 }
                 String Slug = XString.ToAscii(mTopic.Name);
                 int ID = mTopic.ID;
-                if (db.Category.Where(m => m.Slug == Slug && m.Id != ID).Count() > 0)
+                if (db.Category.Where(m => m.Slug == Slug && m.ID != ID).Count() > 0)
                 {
                     Thongbao.set_flash("Tên danh mục đã tồn tại, vui lòng thử lại!", "warning");
                     return RedirectToAction("Edit", "Topic");
@@ -248,7 +248,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                     Thongbao.set_flash("Tên danh mục đã tồn tại trong POST, vui lòng thử lại!", "warning");
                     return RedirectToAction("Edit", "Topic");
                 }
-                if (db.Product.Where(m => m.Slug == Slug && m.Id != ID).Count() > 0)
+                if (db.Product.Where(m => m.Slug == Slug && m.ID != ID).Count() > 0)
                 {
                     Thongbao.set_flash("Tên danh mục đã tồn tại trong PRODUCT, vui lòng thử lại!", "warning");
                     return RedirectToAction("Edit", "Topic");

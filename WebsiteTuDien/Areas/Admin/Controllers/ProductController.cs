@@ -22,14 +22,14 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
             ViewBag.countTrash = db.Product.Where(m => m.Status == 0).Count();
             var list = from p in db.Product
                        join c in db.Category
-                       on p.CatID equals c.Id
+                       on p.CateID equals c.ID
                        where p.Status != 0
-                       where p.CatID == c.Id
+                       where p.CateID == c.ID
                        orderby p.Created_at descending
                        select new ProductCategory()
                        {
-                           ProductId = p.Id,
-                           ProductImg = p.Img,
+                           ProductId = p.ID,
+                           ProductImg = p.Image,
                            ProductName = p.Name,
                            ProductStatus = p.Status,
                            ProductDiscount = p.Discount,
@@ -41,14 +41,14 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
         {
             var list = from p in db.Product
                        join c in db.Category
-                       on p.CatID equals c.Id
+                       on p.CateID equals c.ID
                        where p.Status == 0
-                       where p.CatID == c.Id
+                       where p.CateID == c.ID
                        orderby p.Created_at descending
                        select new ProductCategory()
                        {
-                           ProductId = p.Id,
-                           ProductImg = p.Img,
+                           ProductId = p.ID,
+                           ProductImg = p.Image,
                            ProductName = p.Name,
                            ProductStatus = p.Status,
                            ProductDiscount = p.Discount,
@@ -89,7 +89,7 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 mProduct.Price = mProduct.Price;
-                mProduct.Price_sale = mProduct.Price_sale;
+                mProduct.ProPrice = mProduct.ProPrice;
 
                 String strSlug = XString.ToAscii(mProduct.Name);
                 mProduct.Slug = strSlug;
@@ -99,12 +99,12 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 mProduct.Updated_by = 1;
 
                 // Upload file
-                var file = Request.Files["Img"];
+                var file = Request.Files["Image"];
                 if (file != null && file.ContentLength > 0)
                 {
                     String filename = strSlug + file.FileName.Substring(file.FileName.LastIndexOf("."));
-                    mProduct.Img = filename;
-                    String Strpath = Path.Combine(Server.MapPath("~/Content/Library/images/products/"), filename);
+                    mProduct.Image = filename;
+                    String Strpath = Path.Combine(Server.MapPath("~/Content/Path/product/"), filename);
                     file.SaveAs(Strpath);
                 }
 
@@ -142,12 +142,12 @@ namespace WebsiteTuDien.Areas.Admin.Controllers
                 mProduct.Updated_by = 1;
 
                 // Upload file
-                var file = Request.Files["Img"];
+                var file = Request.Files["Image"];
                 if (file != null && file.ContentLength > 0)
                 {
                     String filename = strSlug + file.FileName.Substring(file.FileName.LastIndexOf("."));
-                    mProduct.Img = filename;
-                    String Strpath = Path.Combine(Server.MapPath("~/Content/Library/images/products/"), filename);
+                    mProduct.Image = filename;
+                    String Strpath = Path.Combine(Server.MapPath("~/Content/Path/product/"), filename);
                     file.SaveAs(Strpath);
                 }
 

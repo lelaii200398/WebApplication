@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebsiteLapTop;
+using WebsiteTuDien;
 using WebsiteTuDien.Models;
 
-namespace WebsiteTuDien.Controllers
+namespace WebsiteBanDoGiaDung.Controllers
 {
     public class SiteController : Controller
     {
         private WebsiteTuDienDbContext db = new WebsiteTuDienDbContext();
-        // GET: Site
+        // GET: WebsiteTuDienDbContext
         public ActionResult Index(String slug = "")
         {
             int pageNumber = 1;
@@ -23,6 +25,10 @@ namespace WebsiteTuDien.Controllers
             if (slug == "")
             {
                 return this.Home();
+            }
+            else if (slug == "account")
+            {
+                return Redirect("~/");
             }
             else
             {
@@ -57,253 +63,122 @@ namespace WebsiteTuDien.Controllers
                 return this.Error(slug);
             }
         }
-
-        public ActionResult ProductDetail(String slug)
+        public ActionResult Home()
         {
-            var model = db.Product
-                .Where(m => m.Slug == slug && m.Status == 1)
-                .First();
-            int catid = model.CatID;
-
-            List<int> listcatid = new List<int>();
-            listcatid.Add(catid);
-
-            var list2 = db.Category
-                .Where(m => m.ParentId == catid)
-                .Select(m => m.Id)
-                .ToList();
-            foreach (var id2 in list2)
-            {
-                listcatid.Add(id2);
-                var list3 = db.Category
-                    .Where(m => m.ParentId == id2)
-                    .Select(m => m.Id)
-                    .ToList();
-                foreach (var id3 in list3)
-                {
-                    listcatid.Add(id3);
-                }
-            }
-            // danh mục cùng sản phẩm
-            ViewBag.listother = db.Product
-                .Where(m => m.Status == 1 && listcatid
-                .Contains(m.CatID) && m.Id != model.Id)
-                .OrderByDescending(m => m.Created_at)
-                .Take(12)
-                .ToList();
-            // sản phẩm mới nhập
-            ViewBag.news = db.Product
-                .Where(m => m.Status == 1 /*&& listcatid.Contains(m.CatId)*/ && m.Id != model.Id)
-                .OrderByDescending(m => m.Created_at).Take(4).ToList();
-            return View("ProductDetail", model);
-        }
-        public ActionResult PostDetail(String slug)
-        {
-            var model = db.Post
-                 .Where(m => m.Slug == slug && m.Status == 1)
-                 .First();
-            int topid = model.TopicID;
-
-            List<int> listtopid = new List<int>();
-            listtopid.Add(topid);
-
-            var list2 = db.Topic
-                .Where(m => m.ParentID == topid)
-                .Select(m => m.ID)
-                .ToList();
-            foreach (var id2 in list2)
-            {
-                listtopid.Add(id2);
-                var list3 = db.Topic
-                    .Where(m => m.ParentID == id2)
-                    .Select(m => m.ID)
-                    .ToList();
-                foreach (var id3 in list3)
-                {
-                    listtopid.Add(id3);
-                }
-            }
-            // danh mục cùng bài viết
-            ViewBag.listother = db.Post
-                .Where(m => m.Status == 1 && listtopid
-                .Contains(m.TopicID) && m.ID != model.ID)
-                .OrderByDescending(m => m.Created_at)
-                .Take(12)
-                .ToList();
-
-            return View("PostDetail", model);
+            ViewBag.NewProduct = db.Product.Where(m => m.Status == 1).OrderByDescending(m => m.Created_at).ToList();
+            ViewBag.PromotionProduct = db.Product.Where(m => m.Status == 1 && m.Discount == 1).OrderByDescending(m => m.Created_at).ToList();
+            return View("Home", db.Category.Where(m => m.Status == 1 && m.ParentID != 0).ToList());
         }
         public ActionResult Error(String slug)
         {
             return View("Error");
         }
-
+        /// <summary>
+        /// Post, Page
+        /// </summary>
         public ActionResult PostPage(String slug)
         {
-            var item = db.Post
-                .Where(m => m.Slug == slug && m.Type == "page")
-                 .First();
-            return View("PostPage", item);
+            return View("PostPage", db.Post.Where(m => m.Slug == slug && m.Status == 1 && m.Type == "page").First());
         }
-
-        public ActionResult PostTopic(String slug, int pageNumber)
+        public ActionResult Post(int? page)
         {
-            int pageSize = 8;
-            var row_cat = db.Topic
-                .Where(m => m.Slug == slug)
-                .First();
-            List<int> listtopid = new List<int>();
-            listtopid.Add(row_cat.ID);
+            ViewBag.S_News = db.Post.Where(m => m.Position == "slider" && m.Status == 1 && m.Type == "post").OrderByDescending(m => m.Created_at).Take(5).ToList();
+            ViewBag.TopicName = db.Topic.Where(m => m.Status == 1).ToList();
+            ViewBag.Right_News = db.Post.Where(m => m.Status == 1 && m.Type == "post" && m.Position == "default").OrderByDescending(m => m.Created_at).Take(7).ToList();
+            var post = db.Post.Where(m => m.Status == 1 && m.Type == "post" && m.Position != "slider").OrderByDescending(m => m.Created_at).ToPagedList(page ?? 1, 2);
 
-            var list2 = db.Topic
-                .Where(m => m.ParentID == row_cat.ID)
-                .Select(m => m.ID)
-                .ToList();
-            foreach (var id2 in list2)
-            {
-                listtopid.Add(id2);
-                var list3 = db.Topic
-                    .Where(m => m.ParentID == id2)
-                    .Select(m => m.ID)
-                    .ToList();
-                foreach (var id3 in list3)
-                {
-                    listtopid.Add(id3);
-                }
-            }
-            var list = db.Post
-                .Where(m => m.Status == 1 && listtopid.Contains(m.TopicID))
-                .OrderByDescending(m => m.Created_at);
+            return View(post);
+        }
+        public ActionResult PostTopic(String slug, int? page)
+        {
+            var Topic_ID = db.Topic.Where(m => m.Slug == slug).Select(m => m.ID).First();
 
-
+            ViewBag.S_News = db.Post.Where(m => m.Position == "slider" && m.Status == 1 && m.Type == "post" && m.TopicID == Topic_ID).OrderByDescending(m => m.Created_at).Take(5).ToList();
+            ViewBag.TopicName = db.Topic.Where(m => m.Status == 1).ToList();
+            ViewBag.breadcrumb = db.Topic.Where(m => m.ID == Topic_ID).First();
+            ViewBag.Right_News = db.Post.Where(m => m.Status == 1 && m.Type == "post" && m.TopicID == Topic_ID).OrderByDescending(m => m.Created_at).Take(7).ToList();
+            var post = db.Post.Where(m => m.Status == 1 && m.Type == "post" && m.Position != "slider" && m.TopicID == Topic_ID).OrderByDescending(m => m.Created_at).ToPagedList(page ?? 1, 2);
             ViewBag.Slug = slug;
-            ViewBag.CatName = row_cat.Name;
-            return View("PostTopic", list
-                .ToPagedList(pageNumber, pageSize));
+            return View("PostTopic", post);
         }
-        public ActionResult ProductCategory(String slug, int pageNumber)
+        public ActionResult PostDetail(String slug)
         {
-            int pageSize = 8;
-            var row_cat = db.Category
-                .Where(m => m.Slug == slug)
-                .First();
-            List<int> listcatid = new List<int>();
-            listcatid.Add(row_cat.Id);
+            var postDetail = db.Post.Where(m => m.Slug == slug && m.Status == 1 && m.Type == "post").First();
+            ViewBag.TopicName = db.Topic.Where(m => m.Status == 1).OrderByDescending(m=>m.Created_at).ToList();
+            ViewBag.S_News = db.Post.Where(m => m.Status == 1 && m.Type == "post").OrderByDescending(m => m.Created_at).Take(7).ToList();
+            ViewBag.listOther = db.Post.Where(m => m.Status == 1 && m.TopicID == postDetail.TopicID && m.ID != postDetail.ID && m.Position == "default").OrderByDescending(m => m.Created_at).ToList();
+            ViewBag.breadcrumb = db.Topic.Where(m => m.ID == postDetail.TopicID).First();
 
-            var list2 = db.Category
-                .Where(m => m.ParentId == row_cat.Id)
-                .Select(m => m.Id)
-                .ToList();
-            foreach (var id2 in list2)
-            {
-                listcatid.Add(id2);
-                var list3 = db.Category
-                    .Where(m => m.ParentId == id2)
-                    .Select(m => m.Id)
-                    .ToList();
-                foreach (var id3 in list3)
-                {
-                    listcatid.Add(id3);
-                }
-            }
-            var list = db.Product
-                .Where(m => m.Status == 1 && listcatid.Contains(m.CatID))
-                .OrderByDescending(m => m.Created_at);
-            //var list = from p in db.Product
-            //           join c in db.Category
-            //           on p.CatID equals c.Id
-            //           where p.Status != 0 && listcatid.Contains(p.CatID)
-            //           orderby p.Created_at descending
-            //           select new ProductCategory()
-            //           {
-            //               ProductId = p.Id,
-            //               ProductImg = p.Img,
-            //               ProductName = p.Name,
-            //               Producttatus = p.Status,
-            //               ProductDetail = p.Detail,
-            //               ProductPrice = p.Price,
-            //               ProductPrice_Sale = p.Price_sale,
-            //               Productlug = p.Slug,
-            //               CategoryName = c.Name
-            //           };
+            return View("PostDetail", postDetail);
+        }
 
-            ViewBag.Slug = slug;
-            ViewBag.CatName = row_cat.Name;
-            return View("ProductCategory", list
-                .ToPagedList(pageNumber, pageSize));
-        }
-        //Trang Chủ
-        public ActionResult Home()
-        {
-            var list = db.Category
-               .Where(m => m.Status == 1 && m.ParentId == 0)
-               .Take(8)
-               .ToList();
-            return View("Home", list);
-        }
-        public ActionResult Other()
-        {
-            return View("Other");
-        }
-        //Sản phẩm trang chủ
+        /// <summary>
+        /// Product
+        /// </summary>
         public ActionResult ProductHome(int catid)
         {
             List<int> listcatid = new List<int>();
             listcatid.Add(catid);
 
-            var list2 = db.Category
-                .Where(m => m.ParentId == catid).Select(m => m.Id)
-                .ToList();
+            var list2 = db.Category.Where(m => m.ParentID == catid).Select(m => m.ID).ToList();
             foreach (var id2 in list2)
             {
                 listcatid.Add(id2);
-                var list3 = db.Category
-                    .Where(m => m.ParentId == id2)
-                    .Select(m => m.Id).ToList();
+                var list3 = db.Category.Where(m => m.ParentID == id2).Select(m => m.ID).ToList();
                 foreach (var id3 in list3)
                 {
                     listcatid.Add(id3);
                 }
             }
 
-            var list = db.Product
-                .Where(m => m.Status == 1 && listcatid
-                .Contains(m.CatID))
-                .Take(12)
-                .OrderByDescending(m => m.Created_at);
-            //var list = from p in db.Product
-            //           join c in db.Category
-            //           on p.CatID equals c.Id
-            //           where (p.Status == 1 && listcatid
-            //           .Contains(p.CatID))
-
-            //           orderby p.Created_at descending
-
-            //           select new ProductCategory()
-            //           {
-            //               ProductId = p.Id,
-            //               ProductImg = p.Img,
-            //               ProductName = p.Name,
-            //               Producttatus = p.Status,
-            //               ProductDetail = p.Detail,
-            //               ProductPrice = p.Price,
-            //               ProductPrice_Sale = p.Price_sale,
-            //               Productlug = p.Slug,
-            //               CategoryName = c.Name
-            //           };
+            var list = db.Product.Where(m => m.Status == 1 && listcatid.Contains(m.CateID)).Take(12).OrderByDescending(m => m.Created_at);
             return View("_ProductHome", list);
         }
-        //Tat ca sp
         public ActionResult Product(int? page)
         {
-            int pageSize = 12;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
-            var list = db.Product.Where(m => m.Status == 1)
-                .OrderByDescending(m => m.Created_at)
-                .ToPagedList(pageNumber, pageSize);
+            var list = db.Product.Where(m => m.Status == 1).OrderByDescending(m => m.Created_at).ToPagedList(pageNumber, pageSize);
+
             return View(list);
         }
-        // tìm kiếm sản phẩm
+        public ActionResult ProductCategory(String slug, int pageNumber)
+        {
+            int pageSize = 8;
+            var row_cat = db.Category.Where(m => m.Slug == slug).First();
+            List<int> listcatid = new List<int>();
+            listcatid.Add(row_cat.ID);
+
+            var list2 = db.Category.Where(m => m.ParentID == row_cat.ID).Select(m => m.ID).ToList();
+            foreach (var id2 in list2)
+            {
+                listcatid.Add(id2);
+                var list3 = db.Category.Where(m => m.ParentID == id2).Select(m => m.ID).ToList();
+                foreach (var id3 in list3)
+                {
+                    listcatid.Add(id3);
+                }
+            }
+
+            var list = db.Product.Where(m => m.Status == 1 && listcatid.Contains(m.CateID)).OrderByDescending(m => m.Created_at);
+
+            ViewBag.CountingTheProduct = list.Count();
+            ViewBag.Slug = slug;
+            ViewBag.CatName = row_cat.Name;
+            return View("ProductCategory", list.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult ProductDetail(String slug)
+        {
+            var getP = db.Product.Where(m => m.Slug == slug && m.Status == 1).First();
+
+
+
+
+            ViewBag.listOther = db.Product.Where(m => m.Status == 1 && m.CateID == getP.CateID && m.ID != getP.ID).OrderByDescending(m => m.Created_at).ToList();
+
+            return View("ProductDetail", getP);
+        }
+
         public ActionResult Search(String key, int? page)
         {
             int pageSize = 10;
@@ -312,135 +187,37 @@ namespace WebsiteTuDien.Controllers
             if (String.IsNullOrEmpty(key.Trim()))
             {
                 return RedirectToAction("Index", "Site");
-
             }
             else
             {
                 list = list.Where(m => m.Name.Contains(key)).OrderByDescending(m => m.Created_at);
             }
-
+            ViewBag.Count = list.Count();
             Session["keywords"] = key;
             return View(list.ToPagedList(pageNumber, pageSize));
         }
-        //Tat ca bai viet
-        public ActionResult Post(int? page)
+
+        public ActionResult Contact()
         {
-            int pageSize = 12;
-            int pageNumber = (page ?? 1);
-            var list = db.Post.Where(m => m.Status == 1 && m.Type == "post")
-                .OrderByDescending(m => m.Created_at)
-                .ToPagedList(pageNumber, pageSize);
-            return View(list);
+            return View();
         }
-        //Trang Chủ Bài viết Topic
-        public ActionResult HomePost() // url tin-tuc
+        [HttpPost]
+        public ActionResult SubmitContact(MContact mContact)
         {
-            var list = db.Topic
-               .Where(m => m.Status == 1 && m.ParentID == 0)
-               .Take(8)
-               .ToList();
-            return View("_HomePost", list);
-        }
-
-        //Trang chủ bài viết Post
-        public ActionResult PostHome(int topid)
-        {
-            List<int> listtopid = new List<int>();
-            listtopid.Add(topid);
-
-            var list2 = db.Topic
-                .Where(m => m.ParentID == topid).Select(m => m.ID)
-                .ToList();
-            foreach (var id2 in list2)
-            {
-                listtopid.Add(id2);
-                var list3 = db.Topic
-                    .Where(m => m.ParentID == id2)
-                    .Select(m => m.ID).ToList();
-                foreach (var id3 in list3)
-                {
-                    listtopid.Add(id3);
-                }
-            }
-
-            var list = db.Post
-                .Where(m => m.Status == 1 && listtopid
-                .Contains(m.TopicID))
-                .Take(12)
-                .OrderByDescending(m => m.Created_at);
-            return View("_PostHome", list);
-        }
-        //Tin tức mới nhất trang chủ
-        public ActionResult PostNew(int topid)
-        {
-            List<int> listtopid = new List<int>();
-            listtopid.Add(topid);
-
-            var list2 = db.Topic
-                .Where(m => m.ParentID == topid).Select(m => m.ID)
-                .ToList();
-            foreach (var id2 in list2)
-            {
-                listtopid.Add(id2);
-                var list3 = db.Topic
-                    .Where(m => m.ParentID == id2)
-                    .Select(m => m.ID).ToList();
-                foreach (var id3 in list3)
-                {
-                    listtopid.Add(id3);
-                }
-            }
-
-            var list = db.Post
-                .Where(m => m.Status == 1 && listtopid
-                .Contains(m.TopicID))
-                .Take(12)
-                .OrderByDescending(m => m.Created_at);
-            //var list = from p in db.Post
-            //           join t in db.Topic
-            //           on p.Topid equals t.Id
-            //           where (p.Status == 1 && listtopid
-            //           .Contains(p.Topid))
-
-            //           orderby p.Created_At descending
-
-            //           select new PostTopic()
-            //           {
-            //               PostId = p.Id,
-            //               PostImg = p.Img,
-            //               PostName = p.Title,
-            //               Posttatus = p.Status,
-            //               PostDetail = p.Detail,
-            //               Postlug = p.Slug,
-            //               TopicName = t.Name
-            //           };
-            return View("_PostNew", list);
-        }
-        public ActionResult HomePostNew()
-        {
-            var list = db.Topic
-               .Where(m => m.Status == 1 && m.ParentID == 0)
-               .Take(2)
-               .OrderByDescending(m => m.Created_at)
-               .ToList();
-            return View("HomePostNew", list);
-        }
-        //home sale (show sản phẩm khuyến mãi)
-        public ActionResult HomeProductale()
-        {
-            var list = db.Product.Where(m => m.Status == 1 && m.Discount == 1)
-                .OrderByDescending(m => m.Created_at);
-            return View("_HomeProductale", list);
-        }
-        //sản phẩm khuyến mãi  (san-pham-khuyen-mai)
-        public ActionResult Productale(int? page)
-        {
-            int pageSize = 12;
-            int pageNumber = (page ?? 1);
-            var list = db.Product.Where(m => m.Status == 1 && m.Discount == 1)
-                .OrderByDescending(m => m.Created_at)
-                .ToPagedList(pageNumber, pageSize);
-            return View(list);
+            mContact.Fullname = Request.Form["Fullname"];
+            mContact.Email = Request.Form["Email"];
+            mContact.Phone = Convert.ToInt32(Request.Form["Phone"]);
+            mContact.Title = Request.Form["Title"];
+            mContact.Detail = Request.Form["Detail"];
+            mContact.Status = 1;
+            mContact.Created_at = DateTime.Now;
+            mContact.Updated_at = DateTime.Now;
+            mContact.Updated_by = 1;
+            
+            db.Contact.Add(mContact);
+            db.SaveChanges();
+            Thongbao.set_flash("Chúng tôi sẽ phản hồi lại trong thời gian sớm nhất. Xin cảm ơn!", "success");
+            return RedirectToAction("Contact", "Site");
         }
     }
 }

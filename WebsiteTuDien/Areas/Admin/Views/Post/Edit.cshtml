@@ -82,7 +82,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     @Html.Label("Hình ảnh", htmlAttributes: new { @class = "control-label" })
-                                    <img src="~/Content/Library/images/post/@Html.DisplayFor(model =>model.Image)" alt="@Html.DisplayFor(model =>model.Image)" width="150" class="d-block my-2" />
+                                    <img src="~/Content/Path/post/@Html.DisplayFor(model =>model.Image)" alt="@Html.DisplayFor(model =>model.Image)" width="150" class="d-block my-2" />
                                     <div class="">
                                         @Html.TextBoxFor(model => model.Image, new { type = "file", @class = "control-label" })
                                         @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })

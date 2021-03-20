@@ -1,36 +1,53 @@
-﻿<div class="fr-slider-wrap">
-    <div class="fr-slider">
-        <ul class="slides">
-            <li>
-                <img src="~/Content/User/img/slider/slide1.jpg" alt="">
-                <div class="fr-slider-cont">
-                    <h3>MEGA SALE -30%</h3>
-                    <p>Winter collection for women's. <br>We all have choices for you. Check it out!</p>
-                    <p class="fr-slider-more-wrap">
-                        <a class="fr-slider-more" href="#">View collection</a>
-                    </p>
+﻿@model IEnumerable<WebsiteTuDien.Models.MSlider>
+<div id="sync1" class="owl-carousel">
+    @{int index = 0;}
+    @foreach (var s in Model)
+    {
+        if (index == 0)
+        {
+            <div class="item synced">
+                <a href="~/@Url">
+                    <img src="~/Content/Path/slider/@s.Image" alt="@s.Name" width="690px" height="350px">
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="item ">
+                <a href="~/@Url">
+                    <img src="~/Content/Path/slider/@s.Image" alt="@s.Name" width="690px" height="350px">
+                </a>
+            </div>
+        }
+        index++;
+    }
+</div>
+<!-- sua dong 1475 prev next show btn owl.carourel.js-->
+<!-- synced = active -->
+<div id="sync2" class="owl-carousel">
+    @{index = 0;}
+    @foreach (var s in Model)
+    {
+        if (index == 0)
+        {
+            <div class="item synced">
+                <div>
+                    <a href="@s.Url">
+                        @s.Name
+                    </a>
                 </div>
-            </li>
-            <li>
-                <img src="~/Content/User/img/slider/slide1.jpg" alt="">
-                <div class="fr-slider-cont">
-                    <h3>NEW COLLECTION</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>Aliquam consequuntur dolorem doloribus fuga harum</p>
-                    <p class="fr-slider-more-wrap">
-                        <a class="fr-slider-more" href="#">Shopping now</a>
-                    </p>
+            </div>
+        }
+        else
+        {
+            <div class="item">
+                <div>
+                    <a href="@s.Url">
+                        @s.Name
+                    </a>
                 </div>
-            </li>
-            <li>
-                <img src="~/Content/User/img/slider/slide1.jpg" alt="">
-                <div class="fr-slider-cont">
-                    <h3>SUMMER TRENDS</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>Aliquam consequuntur dolorem doloribus fuga harum</p>
-                    <p class="fr-slider-more-wrap">
-                        <a class="fr-slider-more" href="#">Start shopping</a>
-                    </p>
-                </div>
-            </li>
-        </ul>
-    </div>
+            </div>
+        }
+        index++;
+    }
 </div>
