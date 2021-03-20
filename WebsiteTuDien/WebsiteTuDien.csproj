@@ -496,7 +496,6 @@
     <Folder Include="Content\Path\product\" />
     <Folder Include="Content\Path\slider\" />
     <Folder Include="Content\Path\user\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
